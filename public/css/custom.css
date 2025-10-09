@@ -1,0 +1,66 @@
+.logo {
+    height: 30px;
+    width: auto;
+}
+
+.body-login {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+
+.text-primary {
+    color: #5c5cf2 !important;
+}
+
+.btn-gray-800:hover {
+    background-color: #FA5252 !important;
+    border: #cdcdcd;
+}
+
+.bg-cover {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+}
+
+.text-gray-800 {
+    color: #333 !important;
+}
+
+.btn-gray-800:hover {
+    background-color: #4b4be0;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 991.98px) {
+    section {
+        flex-direction: column;
+    }
+
+    .col-lg-7 {
+        display: none !important;
+    }
+
+    .col-lg-5 {
+        width: 100% !important;
+        max-width: 100%;
+        padding: 2rem 1.5rem !important;
+        background-color: #fff;
+    }
+
+    .vh-100 {
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    .logo {
+        width: 80px;
+        height: auto;
+    }
+}
