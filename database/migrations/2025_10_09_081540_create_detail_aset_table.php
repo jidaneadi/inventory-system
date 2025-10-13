@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('id_aset', 50);
             $table->foreign('id_aset')->references('id_aset')->on('aset')->onDelete('cascade');
             $table->string('serial_number', 50);
-            $table->integer('id_bahan');
-            $table->foreign('id_bahan')->references('id_bahan')->on('bahan')->onDelete('no action');
-            $table->integer('id_merk');
-            $table->foreign('id_merk')->references('id_merk')->on('merk')->onDelete('no action');
-            $table->integer('id_warna');
-            $table->foreign('id_warna')->references('id_warna')->on('warna')->onDelete('no action');
+            $table->unsignedInteger('id_bahan');
+            $table->foreign('id_bahan')->references('id_bahan')->on('bahan')->onDelete('cascade');
+            $table->unsignedInteger('id_merk');
+            $table->foreign('id_merk')->references('id_merk')->on('merk')->onDelete('cascade');
+            // $table->unsignedInteger('id_warna');
+            // $table->foreign('id_warna')->references('id_warna')->on('warna')->onDelete('cascade');
             $table->enum('kondisi', ['normal', 'rusak', 'perlu perbaikan'])->default('normal');
             $table->timestamps();
         });

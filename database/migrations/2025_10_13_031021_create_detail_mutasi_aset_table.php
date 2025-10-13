@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aset_masuk', function (Blueprint $table) {
-            $table->string('id_aset_masuk', 11)->primary();
-            $table->date('tanggal_masuk');
-            $table->integer('jumlah');
-            $table->unsignedInteger('id_pic');
-            $table->foreign('id_pic')->references('id_pic')->on('pic')->onDelete('cascade');
+        Schema::create('detail_mutasi_aset', function (Blueprint $table) {
+            $table->increments('id_detail_mutasi_aset');
+            $table->string('id_mutasi_aset', 11);
+            $table->foreign('id_mutasi_aset')->references('id_mutasi_aset')->on('mutasi_aset')->onDelete('cascade');
+            $table->string('id_detail_aset', 50);
+            $table->foreign('id_detail_aset')->references('id_detail_aset')->on('detail_aset')->onDelete('cascade');
             $table->unsignedInteger('id_divisi');
             $table->foreign('id_divisi')->references('id_divisi')->on('divisi')->onDelete('cascade');
-            $table->unsignedInteger('id_ruang');
-            $table->foreign('id_ruang')->references('id_ruang')->on('ruang')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aset_masuk');
+        Schema::dropIfExists('detail_mutasi_aset');
     }
 };

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('detail_aset_masuk', function (Blueprint $table) {
             $table->string('id_detail_aset_masuk', 11)->primary();
-            $table->integer('id_aset_masuk');
+            $table->string('id_aset_masuk', 11);
             $table->foreign('id_aset_masuk')->references('id_aset_masuk')->on('aset_masuk')->onDelete('cascade');
-            $table->integer('id_detail_aset');
+            $table->string('id_detail_aset', 50);
             $table->foreign('id_detail_aset')->references('id_detail_aset')->on('detail_aset')->onDelete('cascade');
             $table->timestamps();
         });
