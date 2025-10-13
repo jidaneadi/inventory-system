@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('divisi', function (Blueprint $table) {
-            $table->integer('id_divisi')->primary()->autoIncrement();
+            $table->increments('id_divisi');
             $table->string('nama_divis', 50);
             $table->timestamps();
         });

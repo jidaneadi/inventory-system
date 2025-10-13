@@ -12,15 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_aset_masuk', function (Blueprint $table) {
-            $table->string('id_aset_masuk', 11)->primary();
-            $table->date('tanggal_masuk');
-            $table->integer('jumlah');
-            $table->integer('id_pic');
-            $table->foreign('id_pic')->references('id_pic')->on('pic')->onDelete('set null');
-            $table->integer('id_divisi');
-            $table->foreign('id_divisi')->references('id_divisi')->on('divisi')->onDelete('set null');
-            $table->integer('id_ruang');
-            $table->foreign('id_ruang')->references('id_ruang')->on('ruang')->onDelete('set null');
+            $table->string('id_detail_aset_masuk', 11)->primary();
+            $table->integer('id_aset_masuk');
+            $table->foreign('id_aset_masuk')->references('id_aset_masuk')->on('aset_masuk')->onDelete('cascade');
+            $table->integer('id_detail_aset');
+            $table->foreign('id_detail_aset')->references('id_detail_aset')->on('detail_aset')->onDelete('cascade');
             $table->timestamps();
         });
     }

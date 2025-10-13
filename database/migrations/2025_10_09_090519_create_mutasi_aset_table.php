@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mutasi_aset_masuk', function (Blueprint $table) {
+        Schema::create('mutasi_aset', function (Blueprint $table) {
             $table->string('id_mutasi_aset', 11)->primary();
             $table->integer('id_aset');
             $table->foreign('id_aset')->references('id_aset')->on('aset')->onDelete('set null');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mutasi_aset_masuk');
+        Schema::dropIfExists('mutasi_aset');
     }
 };
