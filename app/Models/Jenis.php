@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Jenis extends Model
 {
     use HasFactory;
+
+    protected $table = "jenis";
+    protected $primaryKey = "id_jenis";
+
+    protected $fillable = ["nama_jenis"];
+    protected $guarded = ["id_jenis", "created_at", "updated_at"];
 }

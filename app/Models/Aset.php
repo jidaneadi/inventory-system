@@ -11,11 +11,18 @@ class Aset extends Model
 
     protected $table = "aset";
     protected $primaryKey = "id_aset";
+    public $incrementing = false;
+
     protected $fillable = [
         "id_aset",
         "nama_aset",
         "jenis_aset"
     ];
 
-    protected $guarted = ["created_at", "updated_at"];
+    protected $guarded = ["created_at", "updated_at"];
+
+    public function detail_aset()
+    {
+        return $this->hasMany(DetailAset::class, 'id_aset', 'id_aset');
+    }
 }

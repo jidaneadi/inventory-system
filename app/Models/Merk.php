@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Merk extends Model
 {
     use HasFactory;
+
+    protected $table = "merk";
+    protected $primaryKey = "id_merk";
+
+    protected $fillable = ["nama_merk"];
+    protected $guarded = ["id_merk", "created_at", "updated_at"];
 }

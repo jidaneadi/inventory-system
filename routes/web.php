@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Aset\CreateAset;
+use App\Http\Livewire\Aset\ManajemenAset;
 use App\Http\Livewire\BootstrapTables;
 use App\Http\Livewire\Components\Buttons;
 use App\Http\Livewire\Components\Forms;
@@ -68,4 +70,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/forms', Forms::class)->name('forms');
     Route::get('/modals', Modals::class)->name('modals');
     Route::get('/typography', Typography::class)->name('typography');
+    Route::get('/aset', ManajemenAset::class)->name('manajemen-aset');
+    Route::get('/aset/create', CreateAset::class)->name('create-aset');
 });
