@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('divisi', function (Blueprint $table) {
             $table->increments('id_divisi');
-            $table->string('nama_divis', 50);
+            $table->string('nama_divisi', 50);
             $table->timestamps();
         });
     }

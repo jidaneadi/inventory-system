@@ -1,120 +1,187 @@
-{{-- <title>Volt Laravel Dashboard - User management</title> --}}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-    <div class="d-block mb-4 mb-md-0">
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                <li class="breadcrumb-item">
-                    <a href="#">
-                        <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                            </path>
-                        </svg>
-                    </a>
-                </li>
-                <li class="breadcrumb-item"><a href="#">Aset</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Aset</li>
-            </ol>
-        </nav>
-        <h2 class="h4">Tambah Aset</h2>
+<div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+        <div class="d-block mb-4 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                </path>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="#">Aset</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tambah Aset</li>
+                </ol>
+            </nav>
+            <h2 class="h4">Tambah Aset</h2>
+            {{-- <p class="mb-0">Your web analytics dashboard template.</p> --}}
+        </div>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <button wire:click="addDetail" class="btn btn-sm btn-gray-800">
+                <i class="bi bi-plus-circle"></i> Tambah Detail
+            </button>
+        </div>
     </div>
-</div>
-<div class="card card-body shadow border-0 table-wrapper table-responsive">
-    <div class="row mb-4">
-        <div class="col-lg-4 col-sm-6">
-            <div class="mb-4">
-                <label for="email">ID</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
+
+    <div class="card card-body shadow border-0">
+        <div class="row mb-4">
+            <div class="col-lg-4">
+                <label>ID</label>
+                <input type="text" wire:model.debounce.500ms="id_aset" class="form-control">
+                @error('id_aset')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-            <div class="mb-4">
-                <label for="email">Nama</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
+            <div class="col-lg-4">
+                <label>Nama</label>
+                <input type="text" wire:model.debounce.500ms="nama_aset" class="form-control">
+                @error('nama_aset')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
-        </div>
-        {{-- Tabel Jenis --}}
-        <div class="col-lg-4">
-            <div class="mb-4">
-                <label class="my-1 me-2" for="country">Jenis</label>
-                <select class="form-select" id="jenis" name="jenis_aset">
+            <div class="col-lg-4">
+                <label>Jenis</label>
+                <select wire:model="jenis_aset" class="form-select">
                     <option value="">Pilih Jenis</option>
                     @foreach ($jenis as $j)
-                        <option value="{{ $j->id }}">{{ $j->nama_jenis }}</option>
+                        <option value="{{ (string) $j->id_jenis }}">{{ $j->nama_jenis }}</option>
                     @endforeach
                 </select>
+                @error('jenis_aset')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-lg-4">
+                <label>Tanggal Masuk</label>
+                <input type="date" wire:model.debounce.500ms="tanggal_masuk" class="form-control">
+                @error('tanggal_masuk')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-lg-4">
+                <label>Jumlah</label>
+                <input type="text" wire:model.debounce.500ms="jumlah" class="form-control">
+                @error('jumlah')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-lg-4">
+                <label>PIC</label>
+                <select wire:model="id_pic" class="form-select">
+                    <option value="">Pilih PIC</option>
+                    @foreach ($pic as $p)
+                        <option value="{{ (string) $p->id_pic }}">{{ $p->nama_pic }}</option>
+                    @endforeach
+                </select>
+                @error('id_pic')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-lg-4">
+                <label>Divisi</label>
+                <select wire:model="id_divisi" class="form-select">
+                    <option value="">Pilih Divisi</option>
+                    @foreach ($divisi as $d)
+                        <option value="{{ (string) $d->id_divisi }}">{{ $d->nama_divisi }}</option>
+                    @endforeach
+                </select>
+                @error('id_divisi')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-lg-4">
+                <label>Ruang</label>
+                <select wire:model="id_ruang" class="form-select">
+                    <option value="">Pilih Ruang</option>
+                    @foreach ($ruang as $r)
+                        <option value="{{ (string) $r->id_ruang }}">{{ $r->nama_ruang }}</option>
+                    @endforeach
+                </select>
+                @error('id_ruang')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
         </div>
-        {{-- End Jenis --}}
 
-        {{-- Button Tambah Detail --}}
-        <button>Detail</button>
-        {{-- End button --}}
+        {{-- DETAIL FORM --}}
+        @foreach ($details as $index => $detail)
+            <div class="border rounded p-3 mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>ID Detail</label>
+                        <input type="text" wire:model="details.{{ $index }}.id_detail_aset"
+                            class="form-control">
+                        @error("details.$index.id_detail_aset")
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label>Serial Number</label>
+                        <input type="text" wire:model.debounce.500ms="details.{{ $index }}.serial_number"
+                            class="form-control">
+                        @error("details.$index.serial_number")
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <label>Bahan</label>
+                        <select wire:model="details.{{ $index }}.id_bahan" class="form-select">
+                            <option value="">Pilih Bahan</option>
+                            @foreach ($bahan as $b)
+                                <option value="{{ (string) $b->id_bahan }}">{{ $b->nama_bahan }}</option>
+                            @endforeach
+                        </select>
+                        @error("details.$index.id_bahan")
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <label>Merk</label>
+                        <select wire:model="details.{{ $index }}.id_merk" class="form-select">
+                            <option value="">Pilih Merk</option>
+                            @foreach ($merk as $m)
+                                <option value="{{ (string) $m->id_merk }}">{{ $m->nama_merk }}</option>
+                            @endforeach
+                        </select>
+                        @error("details.$index.id_merk")
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <label>Kondisi</label>
+                        <select wire:model="details.{{ $index }}.kondisi" class="form-select">
+                            <option value="">Pilih Kondisi</option>
+                            <option value="normal">Normal</option>
+                            <option value="rusak">Rusak</option>
+                            <option value="perlu perbaikan">Perlu Perbaikan</option>
+                        </select>
+                        @error("details.$index.kondisi")
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="text-end mt-3">
+                        <button wire:click="removeDetail({{ $index }})" type="button"
+                            class="btn btn-danger btn-sm">Hapus</button>
+                    </div>
+                </div>
+            </div>
+        @endforeach
 
-        {{-- Form Detail Aset --}}
-        <div class="row mb-4">
-            <div class="col-sm-6">
-                <div class="mb-4">
-                    <label for="email">ID Detail</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                        else.</small>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="mb-4">
-                    <label for="email">Serial Number</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                        else.</small>
-                </div>
-            </div>
-            {{-- Tabel Bahan --}}
-            <div class="col-lg-4 col-sm-6">
-                <div class="mb-4">
-                    <label class="my-1 me-2" for="country">Bahan</label>
-                    <select class="form-select" id="bahan" name="bahan_id">
-                        <option value="">Pilih Bahan</option>
-                        @foreach ($bahan as $b)
-                            <option value="{{ $b->id }}">{{ $b->nama_bahan }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            {{-- End Bahan --}}
-
-            {{-- Tabel Merk --}}
-            <div class="col-lg-4 col-sm-6">
-                <div class="mb-4">
-                    <label class="my-1 me-2" for="country">Merk</label>
-                    <select class="form-select" id="merk" name="merk_id">
-                        <option value="">Pilih Merk</option>
-                        @foreach ($merk as $m)
-                            <option value="{{ $m->id }}">{{ $m->nama_merk }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            {{-- End Merk --}}
-            <div class="col-lg-4">
-                <div class="mb-4">
-                    <label class="my-1 me-2" for="country">Kondisi</label>
-                    <select class="form-select" id="country" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="normal">Normal</option>
-                        <option value="rusak">Rusak</option>
-                        <option value="diperbaharui">Diperbaharui</option>
-                    </select>
-                </div>
-            </div>
+        {{-- TOMBOL AKSI --}}
+        <div class="text-end mt-4">
+            <button wire:click="store" class="btn btn-success me-2">Simpan</button>
+            <button wire:click="resetForm" class="btn btn-secondary">Batal</button>
         </div>
     </div>
-</div>
-<!-- End of Form -->
-<!-- Form -->
+
+    {{-- Notifikasi --}}
+    @if (session()->has('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+    @endif
 </div>

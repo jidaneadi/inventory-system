@@ -72,4 +72,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/typography', Typography::class)->name('typography');
     Route::get('/aset', ManajemenAset::class)->name('manajemen-aset');
     Route::get('/aset/create', CreateAset::class)->name('create-aset');
+    Route::post('/aset/store', [CreateAset::class, 'store'])->name('create-aset');
 });

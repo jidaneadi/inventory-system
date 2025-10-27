@@ -11,7 +11,8 @@ class AsetMasuk extends Model
 
     protected $table = "aset_masuk";
     protected $primaryKey = "id_aset_masuk";
+    public $incrementing = false;
 
-    protected $fillable = ["tanggal_masuk", "jumlah", "id_pic", "id_divisi", "id_ruang"];
-    protected $guarded = ["id_aset_masuk", "created_at", "updated_at"];
+    protected $fillable = ["id_aset_masuk", "tanggal_masuk", "jumlah", "id_pic", "id_divisi", "id_ruang"];
+    protected $guarded = ["created_at", "updated_at"];
 }

@@ -10,11 +10,12 @@ class DetailAset extends Model
     use HasFactory;
     protected $table = 'detail_aset';
     protected $primaryKey = 'id_detail_aset';
+    public $incrementing = false;
 
     protected $fillable = [
-        "id_aset", "serial_number", "id_bahan", "id_merk", "kondisi"
+        "id_detail_aset", "id_aset", "serial_number", "id_bahan", "id_merk", "kondisi"
     ];
-    protected $guarded = ["id_detail_aset", "created_at", "updated_at"];
+    protected $guarded = [ "created_at", "updated_at"];
 
     public function aset()
     {

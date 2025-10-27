@@ -25,4 +25,9 @@ class Aset extends Model
     {
         return $this->hasMany(DetailAset::class, 'id_aset', 'id_aset');
     }
+    public function jenis()
+{
+    return $this->belongsTo(Jenis::class, 'jenis_aset', 'id_jenis');
+}
+
 }
