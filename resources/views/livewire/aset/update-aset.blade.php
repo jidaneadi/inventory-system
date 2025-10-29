@@ -14,10 +14,10 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item"><a href="#">Aset</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Tambah Aset</li>
+                    <li class="breadcrumb-item active" aria-current="page">Update Aset</li>
                 </ol>
             </nav>
-            <h2 class="h4">Tambah Aset</h2>
+            <h2 class="h4">Update Aset</h2>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <button wire:click="addDetail" class="btn btn-sm btn-gray-800">
@@ -30,7 +30,7 @@
         <div class="row mb-4">
             <div class="col-lg-4">
                 <label>ID</label>
-                <input type="text" wire:model.debounce.500ms="id_aset" class="form-control">
+                <input type="text" wire:model.debounce.500ms="id_aset" class="form-control" readonly>
                 @error('id_aset')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -172,7 +172,7 @@
 
         {{-- TOMBOL AKSI --}}
         <div class="text-end mt-4">
-            <button wire:click="store" class="btn btn-success me-2">Simpan</button>
+            <button wire:click="update" class="btn btn-success me-2">Simpan</button>
             <button wire:click="resetForm" class="btn btn-secondary">Batal</button>
         </div>
     </div>

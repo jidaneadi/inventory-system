@@ -134,13 +134,13 @@
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ url('aset/update/' . $a->id_aset) }}">
                                     <span class="fas fa-user-shield me-2"></span>
-                                    View Details
+                                    Update aset
                                 </a>
                                 <a class="dropdown-item text-danger d-flex align-items-center" href="#">
                                     <span class="fas fa-user-times me-2"></span>
-                                    Delete user
+                                    Delete aset
                                 </a>
                             </div>
                         </div>

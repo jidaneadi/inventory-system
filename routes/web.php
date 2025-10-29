@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Aset\CreateAset;
 use App\Http\Livewire\Aset\ManajemenAset;
+use App\Http\Livewire\Aset\UpdateAset;
 use App\Http\Livewire\BootstrapTables;
 use App\Http\Livewire\Components\Buttons;
 use App\Http\Livewire\Components\Forms;
@@ -73,4 +74,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/aset', ManajemenAset::class)->name('manajemen-aset');
     Route::get('/aset/create', CreateAset::class)->name('create-aset');
     Route::post('/aset/store', [CreateAset::class, 'store'])->name('create-aset');
+    Route::get('/aset/update/{id_aset}', UpdateAset::class)->name('update-aset');
 });
