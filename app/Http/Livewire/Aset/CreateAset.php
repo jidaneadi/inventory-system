@@ -18,6 +18,7 @@ class CreateAset extends Component
 {
     public $id_aset, $nama_aset, $jenis_aset, $tanggal_masuk, $jumlah, $id_pic, $id_divisi, $id_ruang;
     public $details = [];
+    public $mode = 'terdaftar';
 
     protected $casts = [
         'jenis_aset' => 'integer',
@@ -25,30 +26,57 @@ class CreateAset extends Component
         'details.*.id_merk' => 'integer',
     ];
 
-    private function randomString() {
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
+        $this->resetValidation();
+        $this->reset(['id_aset', 'nama_aset', 'jenis_aset', 'details']);
+    }
+
+    private function randomString()
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
-        for ($i = 0; $i <= 10 ; $i++) {
+        for ($i = 0; $i <= 10; $i++) {
             $randomString .= $characters[random_int(0, strlen($characters) - 1)];
         }
         return $randomString;
     }
 
-    protected $rules = [
-        'id_aset' => 'required|string|max:50|unique:aset,id_aset',
-        'nama_aset' => 'required|string|max:100',
-        'tanggal_masuk' => 'required|date',
-        'jumlah' => 'required|integer|min:1|max:99999999999',
-        'jenis_aset' => 'required|exists:jenis,id_jenis',
-        'id_pic' => 'required|exists:pic,id_pic',
-        'id_divisi' => 'required|exists:divisi,id_divisi',
-        'id_ruang' => 'required|exists:ruang,id_ruang',
-        'details.*.id_detail_aset' => 'required|string|max:50',
-        'details.*.serial_number' => 'required|string|max:100',
-        'details.*.id_bahan' => 'required|exists:bahan,id_bahan',
-        'details.*.id_merk' => 'required|exists:merk,id_merk',
-        'details.*.kondisi' => 'required|string|in:normal,rusak,perlu perbaikan',
-    ];
+    protected function rules()
+    {
+        if ($this->mode === 'terdaftar') {
+            return [
+                'id_aset' => 'required|exists:aset,id_aset',
+                'tanggal_masuk' => 'required|date',
+                'jumlah' => 'required|integer|min:1|max:99999999999',
+                'id_pic' => 'required|exists:pic,id_pic',
+                'id_divisi' => 'required|exists:divisi,id_divisi',
+                'id_ruang' => 'required|exists:ruang,id_ruang',
+                'details.*.id_detail_aset' => 'required|string|max:50',
+                'details.*.serial_number' => 'required|string|max:100',
+                'details.*.id_bahan' => 'required|exists:bahan,id_bahan',
+                'details.*.id_merk' => 'required|exists:merk,id_merk',
+                'details.*.kondisi' => 'required|string|in:normal,rusak,perlu perbaikan',
+            ];
+        } else {
+            return [
+                'id_aset' => 'required|string|max:50|unique:aset,id_aset',
+                'nama_aset' => 'required|string|max:100',
+                'tanggal_masuk' => 'required|date',
+                'jumlah' => 'required|integer|min:1|max:99999999999',
+                'jenis_aset' => 'required|exists:jenis,id_jenis',
+                'id_pic' => 'required|exists:pic,id_pic',
+                'id_divisi' => 'required|exists:divisi,id_divisi',
+                'id_ruang' => 'required|exists:ruang,id_ruang',
+                'details.*.id_detail_aset' => 'required|string|max:50',
+                'details.*.serial_number' => 'required|string|max:100',
+                'details.*.id_bahan' => 'required|exists:bahan,id_bahan',
+                'details.*.id_merk' => 'required|exists:merk,id_merk',
+                'details.*.kondisi' => 'required|string|in:normal,rusak,perlu perbaikan',
+            ];
+        }
+    }
 
     public function render()
     {
@@ -58,13 +86,14 @@ class CreateAset extends Component
             'bahan' => Bahan::all(),
             'divisi' => Divisi::all(),
             'pic' => PIC::all(),
-            'ruang' => Ruang::all()
+            'ruang' => Ruang::all(),
+            'aset' => Aset::all(),
         ]);
     }
 
     public function updated($propertyName)
     {
-        $this->validateOnly($propertyName);
+        $this->validateOnly($propertyName, $this->rules());
     }
 
     public function addDetail()
@@ -86,16 +115,20 @@ class CreateAset extends Component
 
     public function store()
     {
-        $this->validate();
+        // Validasi berdasarkan mode aktif
+        $this->validate($this->rules());
 
-        Aset::create([
-            'id_aset' => $this->id_aset,
-            'nama_aset' => $this->nama_aset,
-            'jenis_aset' => $this->jenis_aset,
-        ]);
+        // Jika mode TIDAK TERDAFTAR → buat data aset baru
+        if ($this->mode === 'tidak-terdaftar') {
+            Aset::create([
+                'id_aset' => $this->id_aset,
+                'nama_aset' => $this->nama_aset,
+                'jenis_aset' => $this->jenis_aset,
+            ]);
+        }
 
+        // Buat data aset_masuk
         $id_aset_masuk = $this->randomString();
-        // dd($id_aset_masuk);
         $aset_masuk = AsetMasuk::create([
             'id_aset_masuk' => $id_aset_masuk,
             'tanggal_masuk' => $this->tanggal_masuk,
@@ -105,7 +138,7 @@ class CreateAset extends Component
             'id_ruang' => $this->id_ruang,
         ]);
 
-        // dd($this->details);
+        // Simpan setiap detail aset
         foreach ($this->details as $detail) {
             $detail_aset = DetailAset::create([
                 'id_detail_aset' => $detail['id_detail_aset'],
@@ -115,10 +148,9 @@ class CreateAset extends Component
                 'id_merk' => $detail['id_merk'],
                 'kondisi' => $detail['kondisi'],
             ]);
-            // dd($id_aset_masuk);
-            $id_detail_aset_masuk = $this->randomString();
+
             DetailAsetMasuk::create([
-                'id_detail_aset_masuk' => $id_detail_aset_masuk,
+                'id_detail_aset_masuk' => $this->randomString(),
                 'id_aset_masuk' => $aset_masuk->id_aset_masuk,
                 'id_detail_aset' => $detail_aset->id_detail_aset,
             ]);
@@ -126,12 +158,13 @@ class CreateAset extends Component
 
         session()->flash('success', 'Aset dan detail berhasil disimpan!');
         $this->resetForm();
+
         return redirect()->intended('/aset')->with('success', 'Aset berhasil disimpan!');
     }
 
     public function resetForm()
     {
-        $this->reset(['id_aset', 'nama_aset', 'jenis_aset', 'details']);
+        $this->reset(['id_aset', 'nama_aset', 'jenis_aset', 'tanggal_masuk', 'jumlah', 'id_pic', 'id_divisi', 'id_ruang', 'details']);
         $this->resetValidation();
     }
 }
