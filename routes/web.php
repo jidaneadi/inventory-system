@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/modals', Modals::class)->name('modals');
     Route::get('/typography', Typography::class)->name('typography');
     Route::get('/aset', ManajemenAset::class)->name('manajemen-aset');
+    // Route::delete('/aset/delete/{id_aset}', [ManajemenAset::class, 'destroy'])->name('manajemen-aset');
     Route::get('/aset/create', CreateAset::class)->name('create-aset');
     Route::post('/aset/store', [CreateAset::class, 'store'])->name('create-aset');
     Route::get('/aset/update/{id_aset}', UpdateAset::class)->name('update-aset');

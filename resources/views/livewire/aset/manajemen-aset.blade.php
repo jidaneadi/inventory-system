@@ -55,7 +55,8 @@
             <a href="/aset/create" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                 <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6">
                     </path>
                 </svg>
                 <span class="d-md-inline d-none">Tambah Aset</span>
@@ -90,6 +91,12 @@
     </div>
 </div>
 <div class="card card-body shadow border-0 table-wrapper table-responsive">
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <table class="table user-table table-hover align-items-center">
         <thead>
             <tr>
@@ -123,7 +130,7 @@
                     <td>{{ $a->updated_at }}</td>
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                            <button on class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -134,14 +141,24 @@
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
-                                <a class="dropdown-item d-flex align-items-center" href="{{ url('aset/update/' . $a->id_aset) }}">
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="{{ url('aset/update/' . $a->id_aset) }}">
                                     <span class="fas fa-user-shield me-2"></span>
                                     Update aset
                                 </a>
-                                <a class="dropdown-item text-danger d-flex align-items-center" href="#">
+                                {{-- <a onclick="confirm('Yakin ingin menghapus aset ini?') || event.stopImmediatePropagation()"
+                                    wire:click="destroy('{{ $a->id_aset }}')"
+                                    class="dropdown-item text-danger d-flex align-items-center">
                                     <span class="fas fa-user-times me-2"></span>
                                     Delete aset
-                                </a>
+                                </a> --}}
+                                <button type="button"
+                                onclick="if (confirm('Yakin ingin menghapus aset ini?')) { @this.destroy('{{ $a->id_aset }}') }"
+                                class="dropdown-item text-danger d-flex align-items-center">
+                                <span class="fas fa-user-times me-2"></span>
+                                Delete aset
+                            </button>
+
                             </div>
                         </div>
                     </td>
