@@ -1,173 +1,207 @@
-{{-- <title>Volt Laravel Dashboard - User management</title> --}}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-    <div class="d-block mb-4 mb-md-0">
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                <li class="breadcrumb-item">
-                    <a href="#">
-                        <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                            </path>
-                        </svg>
-                    </a>
-                </li>
-                <li class="breadcrumb-item"><a href="#">Aset</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Daftar Aset</li>
-            </ol>
-        </nav>
-        <h2 class="h4">Daftar Aset</h2>
-    </div>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group ms-2 ms-lg-3">
-            <button type="button" class="btn btn-sm btn-outline-gray-600">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-gray-600">Export</button>
-        </div>
-    </div>
-</div>
-<div class="table-settings mb-4">
-    <div class="row justify-content-between align-items-center">
-        <div class="col-9 col-lg-8 d-md-flex">
-            <div class="input-group me-2 me-lg-3 fmxw-300">
-                <span class="input-group-text">
-                    <svg class="icon icon-xs" x-description="Heroicon name: solid/search"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </span>
-
-                <input type="text" class="form-control" placeholder="Search users">
-            </div>
-            <select wire:model="jenis_aset" class="form-select fmxw-200 d-none d-md-inline">
-                <option value="">Pilih Jenis</option>
-                @foreach ($jenis as $j)
-                    <option value="{{ (string) $j->id_jenis }}">{{ $j->nama_jenis }}</option>
-                @endforeach
-            </select>
-            @error('jenis_aset')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="col-3 col-lg-4 d-flex justify-content-end">
-            <a href="/aset/create" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-                <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6">
-                    </path>
-                </svg>
-                <span class="d-md-inline d-none">Tambah Aset</span>
-            </a>
-            <div class="btn-group">
-                <div class="dropdown me-1">
-                    <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-1"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z">
-                            </path>
-                        </svg>
-                        <span class="visually-hidden">Toggle Dropdown</span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end pb-0">
-                        <span class="small ps-3 fw-bold text-dark">Show</span>
-                        <a class="dropdown-item d-flex align-items-center fw-bold" href="#">10 <svg
-                                class="icon icon-xxs ms-auto" fill="currentColor" viewBox="0 0 20 20"
+<div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+        <div class="d-block mb-4 mb-md-0">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg></a>
-                        <a class="dropdown-item fw-bold" href="#">20</a>
-                        <a class="dropdown-item fw-bold rounded-bottom" href="#">30</a>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                </path>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="#">Aset</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Daftar Aset</li>
+                </ol>
+            </nav>
+            <h2 class="h4">Daftar Aset</h2>
+        </div>
+    </div>
+
+    <div class="table-settings mb-4">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-9 col-lg-8 d-md-flex">
+                {{-- SEARCH --}}
+                <div class="input-group me-2 me-lg-3 fmxw-300">
+                    <span class="input-group-text">
+                        <svg class="icon icon-xs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                    <input wire:model.debounce.300ms="search" type="text" class="form-control"
+                        placeholder="Cari aset...">
+                </div>
+
+                {{-- FILTER JENIS --}}
+                <select wire:model="filterJenis" class="form-select fmxw-200 d-none d-md-inline">
+                    <option value="">Semua Jenis</option>
+                    @foreach ($jenis as $j)
+                        <option value="{{ $j->id_jenis }}">{{ $j->nama_jenis }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-3 col-lg-4 d-flex justify-content-end align-items-center">
+                <a href="/aset/create" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2">
+                    <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                        </path>
+                    </svg>
+                    <span class="d-md-inline d-none">Tambah Aset</span>
+                </a>
+
+                {{-- SHOW PER PAGE --}}
+                <div class="btn-group">
+                    <div class="dropdown me-1">
+                        <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-1"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4a1 1 0 011-1zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end pb-0">
+                            <span class="small ps-3 fw-bold text-dark">Show</span>
+                            @foreach ([ 5, 10, 20, 30, 40, 50 ] as $jumlah)
+                                <a wire:click.prevent="setPerPage({{ $jumlah }})"
+                                    class="dropdown-item d-flex align-items-center fw-bold {{ $perPage == $jumlah ? 'active text-primary' : '' }}"
+                                    href="#">
+                                    {{ $jumlah }}
+                                    @if ($perPage == $jumlah)
+                                        <svg class="icon icon-xxs ms-auto" fill="currentColor" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    @endif
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="card card-body shadow border-0 table-wrapper table-responsive">
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <table class="table user-table table-hover align-items-center">
-        <thead>
-            <tr>
-                <th class="border-bottom">
-                    <div class="form-check dashboard-check">
-                        <input class="form-check-input" type="checkbox" value="" id="userCheck55">
-                        <label class="form-check-label" for="userCheck55">
-                        </label>
-                    </div>
-                </th>
-                <th class="border-bottom">ID</th>
-                <th class="border-bottom">Nama</th>
-                <th class="border-bottom">Jenis Aset</th>
-                <th class="border-bottom">Date</th>
-                <th class="border-bottom">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($aset as $index => $a)
-                <tr>
-                    <td>
-                        <div class="form-check dashboard-check">
-                            <input class="form-check-input" type="checkbox" value="" id="userCheck1">
-                            <label class="form-check-label" for="userCheck1">
-                            </label>
-                        </div>
-                    </td>
-                    <td>{{ $a->id_aset }}</td>
-                    <td>{{ $a->nama_aset }}</td>
-                    <td>{{ $a->nama_jenis }}</td>
-                    <td>{{ $a->updated_at }}</td>
-                    <td>
-                        <div class="btn-group">
-                            <button on class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
-                                    </path>
-                                </svg>
-                                <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
-                                <a class="dropdown-item d-flex align-items-center"
-                                    href="{{ url('aset/update/' . $a->id_aset) }}">
-                                    <span class="fas fa-user-shield me-2"></span>
-                                    Update aset
-                                </a>
-                                {{-- <a onclick="confirm('Yakin ingin menghapus aset ini?') || event.stopImmediatePropagation()"
-                                    wire:click="destroy('{{ $a->id_aset }}')"
-                                    class="dropdown-item text-danger d-flex align-items-center">
-                                    <span class="fas fa-user-times me-2"></span>
-                                    Delete aset
-                                </a> --}}
-                                <button type="button"
-                                onclick="if (confirm('Yakin ingin menghapus aset ini?')) { @this.destroy('{{ $a->id_aset }}') }"
-                                class="dropdown-item text-danger d-flex align-items-center">
-                                <span class="fas fa-user-times me-2"></span>
-                                Delete aset
-                            </button>
 
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            @empty
+    <div class="card card-body shadow border-0 table-wrapper table-responsive">
+        {{-- TABLE --}}
+        <table class="table user-table table-hover align-items-center">
+            <thead>
                 <tr>
-                    <td colspan="6" class="text-center text-muted">Belum ada data aset.</td>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Jenis Aset</th>
+                    <th>Date</th>
+                    <th>Action</th>
                 </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @forelse ($aset as $a)
+                    <tr wire:key="aset-{{ $a->id_aset }}">
+                        <td>{{ $a->id_aset }}</td>
+                        <td>{{ $a->nama_aset }}</td>
+                        <td>{{ $a->nama_jenis }}</td>
+                        <td>{{ $a->updated_at }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
+                                        </path>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+                                    <a class="dropdown-item d-flex align-items-center"
+                                        href="{{ url('aset/update/' . $a->id_aset) }}">
+                                        <span class="fas fa-edit me-2"></span> Update aset
+                                    </a>
+                                    <button type="button" wire:click="destroy('{{ $a->id_aset }}')"
+                                        class="dropdown-item text-danger d-flex align-items-center">
+                                        <span class="fas fa-trash-alt me-2"></span> Delete aset
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Belum ada data aset.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div>
+                Menampilkan {{ $aset->firstItem() }} - {{ $aset->lastItem() }} dari {{ $aset->total() }} data
+            </div>
+            <div>
+                {{ $aset->links() }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Konfirmasi delete
+        function confirmDelete(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: "Apakah Anda yakin?",
+                text: "Data aset yang dihapus tidak dapat dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Ya, hapus!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jalankan event Livewire aslinya
+                    const button = event.target.closest('button[wire\\:click]');
+                    if (button) {
+                        const livewireClick = button.getAttribute('wire:click');
+                        const match = livewireClick.match(/\((\d+)\)/);
+                        if (match) {
+                            const id = match[1];
+                            Livewire.find(
+                                Object.keys(window.Livewire.components.componentsById)[0]
+                            ).call('destroy', id);
+                        }
+                    }
+                }
+            });
+        }
+
+        // Script alert
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('alert', data => {
+                Swal.fire({
+                    icon: data.type,
+                    title: data.message,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        });
+    </script>
 </div>

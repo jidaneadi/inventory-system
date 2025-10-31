@@ -5,13 +5,44 @@ namespace App\Http\Livewire\Aset;
 use App\Models\Aset;
 use App\Models\AsetMasuk;
 use App\Models\Jenis;
-use Illuminate\Console\View\Components\Alert;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ManajemenAset extends Component
 {
-    protected $listeners = ['hapusAset' => 'destroy'];
+    use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
+    public $search = '';
+    public $filterJenis = '';
+    public $perPage = 10;
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'filterJenis' => ['except' => ''],
+        'page' => ['except' => 1],
+    ];
+
+    // Reset halaman saat search atau filter berubah
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterJenis()
+    {
+        $this->resetPage();
+    }
+
+    // Set jumlah data per halaman
+    public function setPerPage($jumlah)
+    {
+        $this->perPage = $jumlah;
+        $this->resetPage();
+    }
+
+    // Hapus aset
     public function destroy($id_aset)
     {
         $cek = Aset::where('aset.id_aset', $id_aset)
@@ -20,10 +51,10 @@ class ManajemenAset extends Component
             ->select('aset.*', 'detail_aset_masuk.id_aset_masuk')
             ->first();
 
-        if(!$cek){
+        if (!$cek) {
             $this->dispatchBrowserEvent('alert', [
                 'type' => 'error',
-                'message' => 'Data aset tidak ditemukan!'
+                'message' => 'Data aset tidak ditemukan!',
             ]);
             return;
         }
@@ -31,19 +62,37 @@ class ManajemenAset extends Component
         Aset::where('id_aset', $id_aset)->delete();
         AsetMasuk::where('id_aset_masuk', $cek->id_aset_masuk)->delete();
 
-
-        $this->emitSelf('$refresh');
-
         session()->flash('success', 'Data aset berhasil dihapus!');
+        $this->resetPage();
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'success',
+            'message' => 'Data aset berhasil dihapus!'
+        ]);
     }
 
     public function render()
     {
-        $aset = Aset::with('detail_aset')
+        $query = Aset::query()
             ->join('jenis', 'aset.jenis_aset', '=', 'jenis.id_jenis')
-            ->select('aset.*', 'jenis.nama_jenis as nama_jenis')->get();
+            ->select('aset.*', 'jenis.nama_jenis');
 
-        $jenis = Jenis::get();
-        return view('livewire.aset.manajemen-aset', compact('aset', 'jenis'));
+        if ($this->filterJenis) {
+            $query->where('aset.jenis_aset', $this->filterJenis);
+        }
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('aset.nama_aset', 'like', '%' . $this->search . '%')
+                    ->orWhere('aset.id_aset', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        $aset = $query->orderBy('aset.id_aset', 'desc')->paginate($this->perPage);
+        $jenis = Jenis::orderBy('nama_jenis', 'asc')->get();
+
+        return view('livewire.aset.manajemen-aset', [
+            'aset' => $aset,
+            'jenis' => $jenis,
+        ]);
     }
 }

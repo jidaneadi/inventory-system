@@ -17,17 +17,6 @@
                     <li class="breadcrumb-item active" aria-current="page">Tambah Aset</li>
                 </ol>
             </nav>
-            {{-- <div class="mb-4">
-                <button wire:click="setMode('terdaftar')"
-                    class="btn {{ $mode === 'terdaftar' ? 'btn-success' : 'btn-outline-success' }}">
-                    <i class="bi bi-check-circle"></i> Aset Terdaftar
-                </button>
-
-                <button wire:click="setMode('tidak-terdaftar')"
-                    class="btn {{ $mode === 'tidak-terdaftar' ? 'btn-danger' : 'btn-outline-danger' }}">
-                    <i class="bi bi-x-circle"></i> Aset Tidak Terdaftar
-                </button>
-            </div> --}}
             <div class="d-flex justify-content-center mb-4">
                 <div class="btn-group" role="group" aria-label="Toggle Mode">
                     <button
@@ -57,33 +46,6 @@
     </div>
 
     <div class="card card-body shadow border-0">
-        {{-- <div class="row mb-4">
-            <div class="col-lg-4">
-                <label>ID</label>
-                <input type="text" wire:model.debounce.500ms="id_aset" class="form-control">
-                @error('id_aset')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="col-lg-4">
-                <label>Nama</label>
-                <input type="text" wire:model.debounce.500ms="nama_aset" class="form-control">
-                @error('nama_aset')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="col-lg-4">
-                <label>Jenis</label>
-                <select wire:model="jenis_aset" class="form-select">
-                    <option value="">Pilih Jenis</option>
-                    @foreach ($jenis as $j)
-                        <option value="{{ (string) $j->id_jenis }}">{{ $j->nama_jenis }}</option>
-                    @endforeach
-                </select>
-                @error('jenis_aset')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div> --}}
         <div class="row mb-4">
             @if ($mode === 'terdaftar')
             <!-- FORM untuk aset tidak terdaftar -->
