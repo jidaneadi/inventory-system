@@ -26,6 +26,9 @@ use App\Http\Livewire\RegisterExample;
 use App\Http\Livewire\Transactions;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ResetPasswordExample;
+use App\Http\Livewire\Ruangan\CreateRuangan;
+use App\Http\Livewire\Ruangan\ManajemenRuangan;
+use App\Http\Livewire\Ruangan\UpdateRuangan;
 use App\Http\Livewire\UpgradeToPro;
 use App\Http\Livewire\Users;
 
@@ -76,4 +79,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/aset/create', CreateAset::class)->name('create-aset');
     Route::post('/aset/store', [CreateAset::class, 'store'])->name('create-aset');
     Route::get('/aset/update/{id_aset}', UpdateAset::class)->name('update-aset');
+    Route::get('/ruangan', ManajemenRuangan::class)->name('manajemen-ruangan');
+    Route::get('/ruangan/create', CreateRuangan::class)->name('create-ruangan');
+    Route::post('/ruangan/store', [CreateRuangan::class, 'store'])->name('create-ruangan');
+    Route::get('/ruangan/update/{id_ruang}', UpdateRuangan::class)->name('update-ruangan');
 });

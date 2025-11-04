@@ -11,7 +11,8 @@ class Ruang extends Model
 
     protected $table = "ruang";
     protected $primaryKey = "id_ruang";
+    public $incrementing = false;
 
-    protected $fillable = ["nama_ruang"];
+    protected $fillable = ["nama_ruang", "id_gedung"];
     protected $guarded = ["id_ruang", "created_at", "updated_at"];
 }
