@@ -13,11 +13,11 @@
                             </svg>
                         </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#">Ruangan</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Tambah Ruangan</li>
+                    <li class="breadcrumb-item"><a href="#">Jenis Aset</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Update Jenis Aset</li>
                 </ol>
             </nav>
-            <h2 class="h4">Tambah Ruangan</h2>
+            <h2 class="h4">Update Jenis Aset</h2>
         </div>
     </div>
 
@@ -25,25 +25,13 @@
         <div class="row mb-4">
             <div class="col-lg-6">
                 <label>Nama</label>
-                <input type="text" wire:model.debounce.500ms="nama_ruang" class="form-control">
-                @error('nama_ruang')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <div class="col-lg-6">
-                <label>Gedung</label>
-                <select wire:model="id_gedung" class="form-select">
-                    <option value="">Pilih gedung</option>
-                    @foreach ($gedung as $g)
-                        <option value="{{ (string) $g->id_gedung }}">{{ $g->nama_gedung }}</option>
-                    @endforeach
-                </select>
-                @error('id_gedung')
+                <input type="text" wire:model.debounce.500ms="nama_jenis" class="form-control">
+                @error('nama_jenis')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
             <div class="text-end mt-4">
-                <button wire:click="store" class="btn btn-success me-2">Simpan</button>
+                <button wire:click="update" class="btn btn-success me-2">Simpan</button>
                 <button wire:click="resetForm" class="btn btn-secondary">Batal</button>
             </div>
         </div>

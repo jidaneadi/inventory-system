@@ -23,6 +23,9 @@ use App\Http\Livewire\Gedung\CreateGedung;
 use App\Http\Livewire\Gedung\ManajemenGedung;
 use App\Http\Livewire\Gedung\UpdateGedung;
 use App\Http\Livewire\Index;
+use App\Http\Livewire\JenisAset\CreateJenisAset;
+use App\Http\Livewire\JenisAset\ManajemenJenisAset;
+use App\Http\Livewire\JenisAset\UpdateJenisAset;
 use App\Http\Livewire\LoginExample;
 use App\Http\Livewire\ProfileExample;
 use App\Http\Livewire\RegisterExample;
@@ -90,4 +93,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/gedung/create', CreateGedung::class)->name('create-gedung');
     Route::post('/gedung/store', [CreateGedung::class, 'store'])->name('create-gedung');
     Route::get('/gedung/update/{id_gedung}', UpdateGedung::class)->name('update-gedung');
+    Route::get('/jenis-aset', ManajemenJenisAset::class)->name('manajemen-jenis-aset');
+    Route::get('/jenis-aset/create', CreateJenisAset::class)->name('create-jenis-aset');
+    Route::post('/jenis-aset/store', [CreateJenisAset::class, 'store'])->name('create-jenis-aset');
+    Route::get('/jenis-aset/update/{id_jenis}',UpdateJenisAset::class)->name('update-jenis-aset');
 });

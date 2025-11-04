@@ -6,7 +6,6 @@ use App\Models\Gedung;
 use Livewire\Component;
 
 class CreateGedung extends Component
-
 {
     public $nama_gedung, $id_gedung, $alamat;
 

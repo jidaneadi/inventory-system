@@ -68,7 +68,7 @@ class ManajemenGedung extends Component
     {
         $query = Gedung::query()
             // ->join('gedung', 'gedung.id_gedung', '=', 'gedung.id_gedung')
-            ->select('id_gedung', 'nama_gedung', 'alamat');
+            ->select('id_gedung', 'nama_gedung', 'alamat', 'updated_at');
 
         // if ($this->filterGedung) {
         //     $query->where('gedung.id_gedung', $this->filterGedung);

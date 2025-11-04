@@ -6,7 +6,6 @@ use App\Models\Gedung;
 use Livewire\Component;
 
 class UpdateGedung extends Component
-
 {
     public $id_gedung, $alamat, $nama_gedung;
 
