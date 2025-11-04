@@ -12,6 +12,6 @@ class Gedung extends Model
     protected $table = "gedung";
     protected $primaryKey = "id_gedung";
 
-    protected $fillable = ["nama_gedung", "alamat"];
-    protected $guarded = ["id_gedung", "created_at", "updated_at"];
+    protected $fillable = ["id_gedung", "nama_gedung", "alamat"];
+    protected $guarded = ["created_at", "updated_at"];
 }

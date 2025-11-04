@@ -8,7 +8,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class ManajemenRuangan extends Component
-
 {
     use WithPagination;
 

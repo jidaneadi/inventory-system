@@ -19,6 +19,9 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\ForgotPasswordExample;
+use App\Http\Livewire\Gedung\CreateGedung;
+use App\Http\Livewire\Gedung\ManajemenGedung;
+use App\Http\Livewire\Gedung\UpdateGedung;
 use App\Http\Livewire\Index;
 use App\Http\Livewire\LoginExample;
 use App\Http\Livewire\ProfileExample;
@@ -83,4 +86,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/ruangan/create', CreateRuangan::class)->name('create-ruangan');
     Route::post('/ruangan/store', [CreateRuangan::class, 'store'])->name('create-ruangan');
     Route::get('/ruangan/update/{id_ruang}', UpdateRuangan::class)->name('update-ruangan');
+    Route::get('/gedung', ManajemenGedung::class)->name('manajemen-gedung');
+    Route::get('/gedung/create', CreateGedung::class)->name('create-gedung');
+    Route::post('/gedung/store', [CreateGedung::class, 'store'])->name('create-gedung');
+    Route::get('/gedung/update/{id_gedung}', UpdateGedung::class)->name('update-gedung');
 });
