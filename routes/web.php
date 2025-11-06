@@ -18,6 +18,9 @@ use App\Http\Livewire\Lock;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\Divisi\CreateDivisi;
+use App\Http\Livewire\Divisi\ManajemenDivisi;
+use App\Http\Livewire\Divisi\UpdateDivisi;
 use App\Http\Livewire\ForgotPasswordExample;
 use App\Http\Livewire\Gedung\CreateGedung;
 use App\Http\Livewire\Gedung\ManajemenGedung;
@@ -97,4 +100,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/jenis-aset/create', CreateJenisAset::class)->name('create-jenis-aset');
     Route::post('/jenis-aset/store', [CreateJenisAset::class, 'store'])->name('create-jenis-aset');
     Route::get('/jenis-aset/update/{id_jenis}',UpdateJenisAset::class)->name('update-jenis-aset');
+    Route::get('/divisi', ManajemenDivisi::class)->name('manajemen-divisi');
+    Route::get('/divisi/create', CreateDivisi::class)->name('create-divisi');
+    Route::post('/divisi/store', [CreateDivisi::class, 'store'])->name('create-divisi');
+    Route::get('/divisi/update/{id_divisi}',UpdateDivisi::class)->name('update-divisi');
 });

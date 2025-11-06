@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Gedung;
+namespace App\Http\Livewire\Divisi;
 
-use App\Models\Gedung;
+use App\Models\Divisi;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ManajemenGedung extends Component
+class ManajemenDivisi extends Component
+
 
 {
     use WithPagination;
@@ -14,7 +15,6 @@ class ManajemenGedung extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search = '';
-    public $filterGedung = '';
     public $perPage = 10;
 
     protected $queryString = [
@@ -28,7 +28,7 @@ class ManajemenGedung extends Component
         $this->resetPage();
     }
 
-    public function updatingfilterGedung()
+    public function updatingfilterDivisi()
     {
         $this->resetPage();
     }
@@ -41,45 +41,46 @@ class ManajemenGedung extends Component
     }
 
     // Hapus aset
-    public function destroy($id_gedung)
+    public function destroy($id_divisi)
     {
-        $cek = Gedung::where('id_gedung', $id_gedung)->first();
+        $cek = Divisi::where('id_divisi', $id_divisi)->first();
 
         if (!$cek) {
             $this->dispatchBrowserEvent('alert', [
                 'type' => 'error',
-                'message' => 'Data gedung tidak ditemukan!',
+                'message' => 'Data divisi tidak ditemukan!',
             ]);
             return;
         }
 
-        Gedung::where('id_gedung', $id_gedung)->delete();
+        Divisi::where('id_divisi', $id_divisi)->delete();
 
-        session()->flash('success', 'Data gedung berhasil dihapus!');
+        session()->flash('success', 'Data divisi berhasil dihapus!');
         $this->resetPage();
         $this->dispatchBrowserEvent('alert', [
             'type' => 'success',
-            'message' => 'Data gedung berhasil dihapus!'
+            'message' => 'Data divisi berhasil dihapus!'
         ]);
     }
 
     public function render()
     {
-        $query = Gedung::query()
-           ->select('id_gedung', 'nama_gedung', 'alamat', 'updated_at');
+        $query = Divisi::query()
+           ->select('id_divisi', 'nama_divisi', 'updated_at');
 
 
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('nama_gedung', 'like', '%' . $this->search . '%')
-                    ->orWhere('alamat', 'like', '%' . $this->search . '%');
+                $q->where('nama_divisi', 'like', '%' . $this->search . '%');
+
             });
         }
 
-        $gedung = $query->orderBy('id_gedung', 'asc')->paginate($this->perPage);
+        $divisi = $query->orderBy('id_divisi', 'asc')->paginate($this->perPage);
 
-        return view('livewire.gedung.manajemen-gedung', [
-            'gedung' => $gedung,
+        return view('livewire.divisi.manajemen-divisi', [
+            'divisi' => $divisi,
         ]);
     }
 }
+

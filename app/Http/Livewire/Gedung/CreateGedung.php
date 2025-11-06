@@ -14,10 +14,6 @@ class CreateGedung extends Component
         'alamat' => 'required|min:5|max:200',
     ];
 
-    // protected $cats = [
-    //     'id_gedung' => 'integer'
-    // ];
-
     public function setMode()
     {
         $this->resetValidation();
