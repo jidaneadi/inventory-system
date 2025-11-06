@@ -36,6 +36,9 @@ use App\Http\Livewire\LoginExample;
 use App\Http\Livewire\Merk\CreateMerk;
 use App\Http\Livewire\Merk\ManajamenMerk;
 use App\Http\Livewire\Merk\UpdateMerk;
+use App\Http\Livewire\Pic\CreatePic;
+use App\Http\Livewire\Pic\ManajamenPic;
+use App\Http\Livewire\Pic\UpdatePic;
 use App\Http\Livewire\ProfileExample;
 use App\Http\Livewire\RegisterExample;
 use App\Http\Livewire\Transactions;
@@ -118,4 +121,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/merk/create', CreateMerk::class)->name('create-merk');
     Route::post('/merk/store', [Createmerk::class, 'store'])->name('create-merk');
     Route::get('/merk/update/{id_merk}',UpdateMerk::class)->name('update-merk');
+    Route::get('/pic', ManajamenPic::class)->name('manajemen-pic');
+    Route::get('/pic/create', CreatePic::class)->name('create-pic');
+    Route::post('/pic/store', [Createpic::class, 'store'])->name('create-pic');
+    Route::get('/pic/update/{id_pic}',UpdatePic::class)->name('update-pic');
 });
