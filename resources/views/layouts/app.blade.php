@@ -3,7 +3,7 @@
 
     @if(in_array(request()->route()->getName(), ['dashboard', 'profile', 'profile-example', 'users', 'bootstrap-tables', 'transactions',
     'buttons',
-    'forms', 'modals', 'notifications', 'typography', 'upgrade-to-pro', 'manajemen-aset', 'update-aset', 'create-aset', 'manajemen-ruangan', 'update-ruangan', 'create-ruangan', 'manajemen-gedung', 'update-gedung', 'create-gedung', 'manajemen-jenis-aset', 'update-jenis-aset', 'create-jenis-aset', 'manajemen-divisi', 'update-divisi', 'create-divisi']))
+    'forms', 'modals', 'notifications', 'typography', 'upgrade-to-pro', 'manajemen-aset', 'update-aset', 'create-aset', 'manajemen-ruangan', 'update-ruangan', 'create-ruangan', 'manajemen-gedung', 'update-gedung', 'create-gedung', 'manajemen-jenis-aset', 'update-jenis-aset', 'create-jenis-aset', 'manajemen-divisi', 'update-divisi', 'create-divisi', 'manajemen-bahan', 'update-bahan', 'create-bahan']))
 
     {{-- Nav --}}
     @include('layouts.nav')

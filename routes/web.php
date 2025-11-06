@@ -18,6 +18,9 @@ use App\Http\Livewire\Lock;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\Bahan\CreateBahan;
+use App\Http\Livewire\Bahan\ManajemenBahan;
+use App\Http\Livewire\Bahan\UpdateBahan;
 use App\Http\Livewire\Divisi\CreateDivisi;
 use App\Http\Livewire\Divisi\ManajemenDivisi;
 use App\Http\Livewire\Divisi\UpdateDivisi;
@@ -104,4 +107,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/divisi/create', CreateDivisi::class)->name('create-divisi');
     Route::post('/divisi/store', [CreateDivisi::class, 'store'])->name('create-divisi');
     Route::get('/divisi/update/{id_divisi}',UpdateDivisi::class)->name('update-divisi');
+    Route::get('/bahan', ManajemenBahan::class)->name('manajemen-bahan');
+    Route::get('/bahan/create', CreateBahan::class)->name('create-bahan');
+    Route::post('/bahan/store', [Createbahan::class, 'store'])->name('create-bahan');
+    Route::get('/bahan/update/{id_bahan}',UpdateBahan::class)->name('update-bahan');
 });

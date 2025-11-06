@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Divisi;
+namespace App\Http\Livewire\Bahan;
 
-use App\Models\Divisi;
+use App\Models\Bahan;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ManajemenDivisi extends Component
+class ManajemenBahan extends Component
 {
     use WithPagination;
 
@@ -26,11 +26,6 @@ class ManajemenDivisi extends Component
         $this->resetPage();
     }
 
-    public function updatingfilterDivisi()
-    {
-        $this->resetPage();
-    }
-
     // Set jumlah data per halaman
     public function setPerPage($jumlah)
     {
@@ -39,45 +34,45 @@ class ManajemenDivisi extends Component
     }
 
     // Hapus aset
-    public function destroy($id_divisi)
+    public function destroy($id_bahan)
     {
-        $cek = Divisi::where('id_divisi', $id_divisi)->first();
+        $cek = Bahan::where('id_bahan', $id_bahan)->first();
 
         if (!$cek) {
             $this->dispatchBrowserEvent('alert', [
                 'type' => 'error',
-                'message' => 'Data divisi tidak ditemukan!',
+                'message' => 'Data bahan tidak ditemukan!',
             ]);
             return;
         }
 
-        Divisi::where('id_divisi', $id_divisi)->delete();
+        Bahan::where('id_bahan', $id_bahan)->delete();
 
-        session()->flash('success', 'Data divisi berhasil dihapus!');
+        session()->flash('success', 'Data bahan berhasil dihapus!');
         $this->resetPage();
         $this->dispatchBrowserEvent('alert', [
             'type' => 'success',
-            'message' => 'Data divisi berhasil dihapus!'
+            'message' => 'Data bahan berhasil dihapus!'
         ]);
     }
 
     public function render()
     {
-        $query = Divisi::query()
-           ->select('id_divisi', 'nama_divisi', 'updated_at');
+        $query = Bahan::query()
+           ->select('id_bahan', 'nama_bahan', 'updated_at');
 
 
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('nama_divisi', 'like', '%' . $this->search . '%');
+                $q->where('nama_bahan', 'like', '%' . $this->search . '%');
 
             });
         }
 
-        $divisi = $query->orderBy('id_divisi', 'asc')->paginate($this->perPage);
+        $bahan = $query->orderBy('id_bahan', 'asc')->paginate($this->perPage);
 
-        return view('livewire.divisi.manajemen-divisi', [
-            'divisi' => $divisi,
+        return view('livewire.bahan.manajemen-bahan', [
+            'bahan' => $bahan,
         ]);
     }
 }
