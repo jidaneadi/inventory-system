@@ -33,6 +33,9 @@ use App\Http\Livewire\JenisAset\CreateJenisAset;
 use App\Http\Livewire\JenisAset\ManajemenJenisAset;
 use App\Http\Livewire\JenisAset\UpdateJenisAset;
 use App\Http\Livewire\LoginExample;
+use App\Http\Livewire\Merk\CreateMerk;
+use App\Http\Livewire\Merk\ManajamenMerk;
+use App\Http\Livewire\Merk\UpdateMerk;
 use App\Http\Livewire\ProfileExample;
 use App\Http\Livewire\RegisterExample;
 use App\Http\Livewire\Transactions;
@@ -111,4 +114,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/bahan/create', CreateBahan::class)->name('create-bahan');
     Route::post('/bahan/store', [Createbahan::class, 'store'])->name('create-bahan');
     Route::get('/bahan/update/{id_bahan}',UpdateBahan::class)->name('update-bahan');
+    Route::get('/merk', ManajamenMerk::class)->name('manajemen-merk');
+    Route::get('/merk/create', CreateMerk::class)->name('create-merk');
+    Route::post('/merk/store', [Createmerk::class, 'store'])->name('create-merk');
+    Route::get('/merk/update/{id_merk}',UpdateMerk::class)->name('update-merk');
 });

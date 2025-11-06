@@ -6,7 +6,6 @@ use App\Models\Bahan;
 use Livewire\Component;
 
 class CreateBahan extends Component
-
 {
     public $nama_bahan;
 
