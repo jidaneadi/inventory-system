@@ -17,10 +17,6 @@ return new class extends Migration
             $table->foreign('id_aset')->references('id_aset')->on('aset')->onDelete('cascade');
             $table->unsignedInteger('id_pic');
             $table->foreign('id_pic')->references('id_pic')->on('pic')->onDelete('cascade');
-            // $table->unsignedInteger('id_divisi');
-            // $table->foreign('id_divisi')->references('id_divisi')->on('divisi')->onDelete('cascade');
-            // $table->unsignedInteger('id_ruang');
-            // $table->foreign('id_ruang')->references('id_ruang')->on('ruang')->onDelete('cascade');
             $table->date('tanggal_mutasi');
             $table->timestamps();
         });

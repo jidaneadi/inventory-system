@@ -125,4 +125,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/pic/create', CreatePic::class)->name('create-pic');
     Route::post('/pic/store', [Createpic::class, 'store'])->name('create-pic');
     Route::get('/pic/update/{id_pic}',UpdatePic::class)->name('update-pic');
+
 });

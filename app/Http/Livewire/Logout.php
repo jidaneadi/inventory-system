@@ -2,16 +2,24 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Livewire\Auth;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Logout extends Component
 {
+    public $mode = 'sidebar';
 
-    public function logout() {
-        auth()->logout();
-        return redirect('/login');
+    public function mount($mode = 'sidebar')
+    {
+        $this->mode = $mode;
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
     public function render()
     {
         return view('livewire.logout');
