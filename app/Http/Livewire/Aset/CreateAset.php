@@ -84,7 +84,7 @@ class CreateAset extends Component
             'jenis' => Jenis::all(),
             'merk' => Merk::all(),
             'bahan' => Bahan::all(),
-            'divisi' => Divisi::all(),
+            'divisi' =>  Divisi::all(),
             'pic' => PIC::all(),
             'ruang' => Ruang::all(),
             'aset' => Aset::all(),

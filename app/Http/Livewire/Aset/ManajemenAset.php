@@ -71,6 +71,7 @@ class ManajemenAset extends Component
     }
 
     public function render()
+
     {
         $query = Aset::query()
             ->join('jenis', 'aset.jenis_aset', '=', 'jenis.id_jenis')

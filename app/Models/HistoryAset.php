@@ -9,7 +9,7 @@ class HistoryAset extends Model
 {
     use HasFactory;
 
-    protected $table = "history";
+    protected $table = "history_aset";
     protected $primaryKey = "id_history";
 
     protected $fillable = ["id_mutasi_aset", "jenis_mutasi", "tanggal_mutasi"];

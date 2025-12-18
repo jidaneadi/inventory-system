@@ -102,7 +102,7 @@
             </div>
             <div class="col-lg-4">
                 <label>Jumlah</label>
-                <input type="text" wire:model.debounce.500ms="jumlah" class="form-control">
+                <input type="number" wire:model.debounce.500ms="jumlah" class="form-control">
                 @error('jumlah')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
